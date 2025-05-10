@@ -31,14 +31,22 @@ export default function Footer() {
           <SocialIcon href="#" icon="linkedin" />
         </div>
       </div>
-
-      {/* Data protection and legal notices */}
       <div className="p-8 pb-12">
         <div className="flex flex-col items-center gap-7 lg:flex-row">
           <FooterLink href="#" label="Data Protection" />
           <FooterLink href="#" label="Legal Notices" />
           <SocialIcon href="#" icon="cookie" />
         </div>
+      </div>
+      <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-0">
+        <h1 className="text-[15vw] font-extrabold text-white/20 absolute">
+          Promptly AI
+        </h1>
+        <img
+          src="/logo.png"
+          alt="Watermark"
+          className="opacity-20 w-[100%] max-w-5xl object-contain"
+        />
       </div>
     </footer>
   );
