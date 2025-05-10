@@ -48,27 +48,30 @@ const TestimonialSlider: React.FC = () => {
   });
 
   return (
-    <div className="relative min-h-screen bg-[#0F0E1E] text-white py-16 px-4">
-      <div className="text-center">
-        <h2 className="text-4xl md:text-5xl font-semibold mb-4">What people says</h2>
-        <p className="text-[#cfcfcf] max-w-2xl mx-auto mb-12">
-          Discover what our satisfied customer have to say about their experiences with Promptly
+    <div className="relative min-h-screen bg-[#0F0E1E] text-white py-20 px-6 font-[\'Ubuntu\']">
+      <div className="text-center mb-12">
+        <h2 className="text-5xl font-bold text-white mb-4">What people says</h2>
+        <p className="text-lg text-white/70 max-w-3xl mx-auto">
+          Discover what our satisfied customers have to say about their experiences with {" "}
+          <span className="bg-gradient-to-b from-[#ffd319] via-[#ff2975] to-[#8c1eff] bg-clip-text text-transparent font-semibold">
+            Promptly
+          </span>
         </p>
       </div>
 
-      <div className="mb-10">
+      <div className="mb-14">
         <Slider {...settingsLTR} ref={slider1Ref}>
           {testimonials.map((testimonial, index) => (
-            <div key={`ltr-${index}`} className="px-2">
+            <div key={`ltr-${index}`} className="px-3">
               <div
-                className={`bg-[#1B1A2D] text-white rounded-xl p-6 border border-white/10 h-48 flex flex-col justify-between transition-all duration-300 ${index === 1 ? "border border-[#9B7BFF] shadow-[0_0_40px_#9B7BFF55]" : "hover:bg-white/10 hover:shadow-[0_0_20px_rgba(109,40,217,0.3)]"}`}
+                className={`bg-[#1B1A2D] text-white rounded-2xl p-7 border border-white/10 h-52 flex flex-col justify-between transition-all duration-300 group hover:border-[#9B7BFF] hover:shadow-[0_0_40px_#9B7BFF55]`}
               >
-                <p className="text-sm mb-4">“{testimonial.quote}”</p>
+                <p className="text-base md:text-lg leading-relaxed mb-5">“{testimonial.quote}”</p>
                 <div className="flex items-center">
-                  <div className="w-6 h-6 rounded-full bg-gray-400 mr-3"></div>
+                  <div className="w-8 h-8 rounded-full bg-gray-400 mr-3"></div>
                   <div>
-                    <p className="text-white text-sm font-medium leading-none">{testimonial.author}</p>
-                    <p className="text-xs text-gray-400 leading-none">{testimonial.role}</p>
+                    <p className="text-white text-base font-semibold leading-tight">{testimonial.author}</p>
+                    <p className="text-sm text-gray-400 leading-none">{testimonial.role}</p>
                   </div>
                 </div>
               </div>
@@ -80,16 +83,16 @@ const TestimonialSlider: React.FC = () => {
       <div>
         <Slider {...settingsRTL} ref={slider2Ref}>
           {[...testimonials].reverse().map((testimonial, index) => (
-            <div key={`rtl-${index}`} className="px-2">
+            <div key={`rtl-${index}`} className="px-3">
               <div
-                className={`bg-[#1B1A2D] text-white rounded-xl p-6 border border-white/10 h-48 flex flex-col justify-between transition-all duration-300 ${index === 1 ? "border border-[#9B7BFF] shadow-[0_0_40px_#9B7BFF55]" : "hover:bg-white/10 hover:shadow-[0_0_20px_rgba(109,40,217,0.3)]"}`}
+                className={`bg-[#1B1A2D] text-white rounded-2xl p-7 border border-white/10 h-52 flex flex-col justify-between transition-all duration-300 group hover:border-[#9B7BFF] hover:shadow-[0_0_40px_#9B7BFF55]`}
               >
-                <p className="text-sm mb-4">“{testimonial.quote}”</p>
+                <p className="text-base md:text-lg leading-relaxed mb-5">“{testimonial.quote}”</p>
                 <div className="flex items-center">
-                  <div className="w-6 h-6 rounded-full bg-gray-400 mr-3"></div>
+                  <div className="w-8 h-8 rounded-full bg-gray-400 mr-3"></div>
                   <div>
-                    <p className="text-white text-sm font-medium leading-none">{testimonial.author}</p>
-                    <p className="text-xs text-gray-400 leading-none">{testimonial.role}</p>
+                    <p className="text-white text-base font-semibold leading-tight">{testimonial.author}</p>
+                    <p className="text-sm text-gray-400 leading-none">{testimonial.role}</p>
                   </div>
                 </div>
               </div>
@@ -111,6 +114,9 @@ const TestimonialSlider: React.FC = () => {
         }
         .slick-slide:hover {
           transform: translateY(-5px);
+        }
+        body {
+          font-family: 'Ubuntu', sans-serif;
         }
       `}</style>
     </div>
