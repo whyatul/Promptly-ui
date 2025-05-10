@@ -16,7 +16,7 @@ interface SocialIconProps {
 export default function Footer() {
   return (
     <footer className="relative w-full bg-black overflow-hidden">
-      <div className="flex flex-col py-20 gap-12 lg:flex-row lg:justify-between lg:px-8 lg:pb-16">
+      <div className="flex flex-col py-20 gap-12 lg:flex-row lg:justify-between lg:px-8 lg:pb-16 z-30">
         <div className="grid gap-7 justify-center items-center lg:grid-cols-2 lg:items-start lg:gap-x-10 lg:pb-6 text-center lg:text-left">
           <FooterLink href="#" label="AI Coaching" />
           <FooterLink href="#" label="Development" />
@@ -31,22 +31,22 @@ export default function Footer() {
           <SocialIcon href="#" icon="linkedin" />
         </div>
       </div>
-      <div className="p-8 pb-12">
+      <div className="p-8 pb-12 z-30">
         <div className="flex flex-col items-center gap-7 lg:flex-row">
           <FooterLink href="#" label="Data Protection" />
           <FooterLink href="#" label="Legal Notices" />
           <SocialIcon href="#" icon="cookie" />
         </div>
       </div>
-      <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-0">
-        <h1 className="text-[15vw] font-extrabold text-white/20 absolute">
-          Promptly AI
-        </h1>
-        <img
-          src="/logo.png"
-          alt="Watermark"
-          className="opacity-20 w-[100%] max-w-5xl object-contain"
-        />
+      <div className="absolute inset-0 flex justify-center self-end h-14 lg:h-41 overflow-hidden lg:overflow-visible">
+          <h1 className="text-[15vw] font-[1000] text-white/30 absolute z-10 -rotate-2 subpixel-antialiased ">
+            PROMPTLY AI
+          </h1>
+          <img
+            src="/logo.png"
+            alt="Watermark"
+            className="w-[100%] max-w-6xl object-contain -rotate-30 opacity-70 contrast-125 brightness-90 mix-blend-screen place-self-end z-20"
+          />
       </div>
     </footer>
   );
