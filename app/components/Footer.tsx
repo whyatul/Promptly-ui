@@ -31,22 +31,24 @@ export default function Footer() {
           <SocialIcon href="#" icon="linkedin" />
         </div>
       </div>
-      <div className="p-8 pb-12 z-30">
+      <div className="px-8 pb-12 z-30">
         <div className="flex flex-col items-center gap-7 lg:flex-row">
           <FooterLink href="#" label="Data Protection" />
           <FooterLink href="#" label="Legal Notices" />
           <SocialIcon href="#" icon="cookie" />
         </div>
       </div>
-      <div className="relative inset-0 flex justify-center items-end min-h-15 lg:h-full overflow-hidden lg:overflow-visible lg:absolute">
-          <h1 className="text-5xl lg:text-[15vw] font-[1000] text-white/30 z-10 font-stretch-100%">
-            PROMPTLY AI
-          </h1>
+      <div className="absolute w-full h-[10vh] lg:h-full overflow-hidden bottom-0">
+        <span className="w-full absolute bottom-0 text-[12vw] lg:text-[15vw] font-black text-white/30 z-10 text-center align-text-bottom font-serif">
+          Promptly AI
+        </span>
+        <div>
           <img
             src="/logo.png"
             alt="Watermark"
-            className="absolute w-[100%] max-w-6xl object-contain -rotate-30 opacity-70 contrast-125 brightness-90 mix-blend-screen place-self-end z-20"
+            className="w-full object-contain -rotate-30 opacity-70 contrast-125 brightness-90 mix-blend-screen z-20 absolute bottom-0 right-0"
           />
+        </div>
       </div>
     </footer>
   );
