@@ -1,9 +1,5 @@
-import Footer from "@/components/Footer";
+import Footer from "@/app/components/Footer";
 
 export default function Main() {
-  return (
-    <div className="flex h-screen w-screen bg-background text-foreground items-center justify-center">
-      <Footer/>
-    </div>
-  );
+  return <Footer />;
 }

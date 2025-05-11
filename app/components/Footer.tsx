@@ -38,14 +38,14 @@ export default function Footer() {
           <SocialIcon href="#" icon="cookie" />
         </div>
       </div>
-      <div className="absolute inset-0 flex justify-center self-end h-14 lg:h-41 overflow-hidden lg:overflow-visible">
-          <h1 className="text-[15vw] font-[1000] text-white/30 absolute z-10 -rotate-2 subpixel-antialiased ">
+      <div className="relative inset-0 flex justify-center items-end min-h-15 lg:h-full overflow-hidden lg:overflow-visible lg:absolute">
+          <h1 className="text-5xl lg:text-[15vw] font-[1000] text-white/30 z-10 font-stretch-100%">
             PROMPTLY AI
           </h1>
           <img
             src="/logo.png"
             alt="Watermark"
-            className="w-[100%] max-w-6xl object-contain -rotate-30 opacity-70 contrast-125 brightness-90 mix-blend-screen place-self-end z-20"
+            className="absolute w-[100%] max-w-6xl object-contain -rotate-30 opacity-70 contrast-125 brightness-90 mix-blend-screen place-self-end z-20"
           />
       </div>
     </footer>
