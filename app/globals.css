@@ -1,26 +1,96 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Modern, Light & Aesthetic Color Scheme */
+  --background: #f5f7fa; /* Soft off-white/light pastel */
+  --foreground: #374151; /* Dark gray for readability (Tailwind gray-700) */
+  --heading-color: #1F2937; /* Slightly darker gray (Tailwind gray-800) */
+  --subheading-color: #6B7280; /* Medium gray (Tailwind gray-500) */
+  
+  /* Primary Accent Palette */
+  --accent-sky-blue: #87CEEB; /* Sky Blue */
+  --accent-sky-blue-darker: #79A6DC; /* Darker Sky Blue for hover/active */
+  --accent-lavender: #E6E6FA; /* Lavender */
+  --accent-mint-green: #98FF98; /* Mint Green */
+  --accent-soft-coral: #FF7F50; /* Soft Coral */
+
+  /* Borders & UI Elements */
+  --border-color-soft: rgba(0, 0, 0, 0.05); /* Soft border for cards/containers */
+  --card-background: #FFFFFF; /* White for cards */
+  --card-background-translucent: rgba(255, 255, 255, 0.85); /* Translucent for cards */
+  --ui-background-hover: #EBF4FF; /* Light sky blue tint for hover */
+
+  /* --font-ubuntu: defined by next/font/local; */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-ubuntu); /* Using existing Ubuntu font */
 }
 
+/* Dark mode - can be refined later with a complementary dark aesthetic */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #f5f7fa; /* Soft off-white/light pastel */
+    --foreground: #374151; /* Dark gray for readability (Tailwind gray-700) */
+    --heading-color: #1F2937; /* Slightly darker gray (Tailwind gray-800) */
+    --subheading-color: #6B7280; /* Medium gray (Tailwind gray-500) */
+    
+    /* Primary Accent Palette */
+    --accent-sky-blue: #87CEEB; /* Sky Blue */
+    --accent-sky-blue-darker: #79A6DC; /* Darker Sky Blue for hover/active */
+    --accent-lavender: #E6E6FA; /* Lavender */
+    --accent-mint-green: #98FF98; /* Mint Green */
+    --accent-soft-coral: #FF7F50; /* Soft Coral */
+  
+    /* Borders & UI Elements */
+    --border-color-soft: rgba(0, 0, 0, 0.05); /* Soft border for cards/containers */
+    --card-background: #FFFFFF; /* White for cards */
+    --card-background-translucent: rgba(255, 255, 255, 0.85); /* Translucent for cards */
+    --ui-background-hover: #EBF4FF; /* Light sky blue tint for hover */
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), sans-serif;
+}
+
+h1, h2 {
+  color: var(--heading-color);
+}
+
+h3, h4, h5, h6 {
+  color: var(--subheading-color);
+}
+
+/* GSAP-inspired text gradient utility classes */
+.gsap-gradient-1 {
+  background: linear-gradient(to right, #88ce02, #4a8b01);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gsap-gradient-2 {
+  background: linear-gradient(to right, #8d65ff, #5934ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gsap-gradient-3 {
+  background: linear-gradient(to right, #e90101, #ff6464);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gsap-gradient-4 {
+  background: linear-gradient(to right, #ffb700, #ff8a00);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
