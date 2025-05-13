@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { ThemeProvider } from "@/lib/utils/theme-provider"; 
 
 const ubuntu = localFont({
   src: [
     {
-      // This path tells Next.js to look in /home/whyatul/promptly-ui/fonts/
       path: '../fonts/Ubuntu-Regular.ttf', 
       weight: '400',
       style: 'normal',
@@ -13,6 +13,12 @@ const ubuntu = localFont({
   ],
   display: "swap",
   variable: "--font-ubuntu", 
+});
+
+const calSans = localFont({
+  src: '../fonts/CalSans-Regular.ttf', 
+  display: 'swap',
+  variable: '--font-cal-sans',
 });
 
 export const metadata: Metadata = { 
@@ -27,12 +33,16 @@ export default function RootLayout({
 }>) {
   return ( 
     <html lang="en" suppressHydrationWarning> 
-      {/* Body class includes font variable and antialiasing. Background and text color come from globals.css */}
       <body
-        className={`${ubuntu.variable} font-sans antialiased`} 
+        className={`${ubuntu.variable} ${calSans.variable} font-sans antialiased`} 
         suppressHydrationWarning
       >
-        {children} 
+        <ThemeProvider
+          defaultTheme="light"
+          storageKey="promptly-theme"
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

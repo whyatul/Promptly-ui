@@ -1,28 +1,93 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  
+  --background: #FDF6ED; 
+  --foreground: #374151; 
+  --heading-color: #1F2937; 
+  --subheading-color: #6B7280; 
+  
+
+  --accent-sky-blue: #87CEEB;
+  --accent-sky-blue-darker: #79A6DC; 
+  --accent-lavender: #E6E6FA;
+  --accent-mint-green: #98FF98; 
+  --accent-soft-coral: #FF7F50;
+
+
+  --border-color-soft: rgba(0, 0, 0, 0.05); 
+  --card-background: #FFFFFF; 
+  --card-background-translucent: rgba(255, 255, 255, 0.85); 
+  --ui-background-hover: #EBF4FF; 
+
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-ubuntu); 
 }
+
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background:#FDF6ED; 
+    --foreground: #374151; 
+    --heading-color: #1F2937; 
+    --subheading-color: #6B7280; 
+    
+  
+    --accent-sky-blue: #87CEEB; 
+    --accent-sky-blue-darker: #79A6DC; 
+    --accent-lavender: #E6E6FA; 
+    --accent-mint-green: #98FF98; 
+    --accent-soft-coral: #FF7F50; 
+  
+    --border-color-soft: rgba(0, 0, 0, 0.05); 
+    --card-background: #FFFFFF; 
+    --card-background-translucent: rgba(255, 255, 255, 0.85); 
+    --ui-background-hover: #EBF4FF; 
   }
+}
+
+html, body {
+  overflow-x: hidden; 
+  overflow-y: auto; 
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), sans-serif;
+}
+
+h1, h2 {
+  color: var(--heading-color);
+}
+
+h3, h4, h5, h6 {
+  color: var(--subheading-color);
+}
+
+.gsap-gradient-1 {
+  background: linear-gradient(to right, #88ce02, #4a8b01);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gsap-gradient-2 {
+  background: linear-gradient(to right, #8d65ff, #5934ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gsap-gradient-3 {
+  background: linear-gradient(to right, #e90101, #ff6464);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .gsap-gradient-4 {
