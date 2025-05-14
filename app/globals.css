@@ -1,98 +1,703 @@
 @import "tailwindcss";
 
 :root {
-  
-  --background: #FDF6ED; 
-  --foreground: #374151; 
-  --heading-color: #1F2937; 
-  --subheading-color: #6B7280; 
-  
+  --background: #FDF6ED;
+  --foreground: #374151;
+  --heading-color: #1F2937;
+  --subheading-color: #6B7280;
 
-  --accent-sky-blue: #87CEEB;
-  --accent-sky-blue-darker: #79A6DC; 
-  --accent-lavender: #E6E6FA;
-  --accent-mint-green: #98FF98; 
-  --accent-soft-coral: #FF7F50;
+  --accent-coral: #FF6B6B;
+  --accent-orange: #FF8E53;
+  --accent-orange-light: rgba(255, 142, 83, 0.1);
+  --accent-orange-dark: #FF5722;
+  --accent-coral-light: rgba(255, 107, 107, 0.1);
 
+  --gradient-primary: linear-gradient(to right, var(--accent-coral), var(--accent-orange));
+  --gradient-primary-translucent: linear-gradient(to right, rgba(255, 107, 107, 0.8), rgba(255, 142, 83, 0.8));
+  --gradient-vibrant: linear-gradient(to right, var(--accent-coral), var(--accent-orange-dark));
+  --gradient-cool: linear-gradient(45deg, var(--accent-orange-dark), var(--accent-coral));
+  --gradient-main: linear-gradient(to right, #FF6B6B, #FF8E53);
 
-  --border-color-soft: rgba(0, 0, 0, 0.05); 
-  --card-background: #FFFFFF; 
-  --card-background-translucent: rgba(255, 255, 255, 0.85); 
-  --ui-background-hover: #EBF4FF; 
+  --border-color-soft: rgba(0, 0, 0, 0.05);
+  --card-background: #FFFFFF;
+  --card-background-translucent: rgba(255, 255, 255, 0.85);
+  --ui-background-hover: #FDF6ED;
 
+  --font-family-poppins: var(--font-poppins), 'Poppins', sans-serif;
+
+  /* Tailwind theme variables */
+  --promptly-background: var(--background);
+  --promptly-foreground: var(--foreground);
+  --promptly-heading: var(--heading-color);
+  --promptly-subheading: var(--subheading-color);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-ubuntu); 
+  --font-sans: var(--font-poppins), var(--font-ubuntu);
 }
-
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background:#FDF6ED; 
-    --foreground: #374151; 
-    --heading-color: #1F2937; 
-    --subheading-color: #6B7280; 
-    
-  
-    --accent-sky-blue: #87CEEB; 
-    --accent-sky-blue-darker: #79A6DC; 
-    --accent-lavender: #E6E6FA; 
-    --accent-mint-green: #98FF98; 
-    --accent-soft-coral: #FF7F50; 
-  
-    --border-color-soft: rgba(0, 0, 0, 0.05); 
-    --card-background: #FFFFFF; 
-    --card-background-translucent: rgba(255, 255, 255, 0.85); 
-    --ui-background-hover: #EBF4FF; 
+    --background: #FDF6ED;
+    --foreground: #374151;
+    --heading-color: #1F2937;
+    --subheading-color: #6B7280;
+
+    --accent-coral: #FF6B6B;
+    --accent-orange: #FF8E53;
+    --accent-orange-light: rgba(255, 142, 83, 0.1);
+    --accent-orange-dark: #FF5722;
+    --accent-coral-light: rgba(255, 107, 107, 0.1);
+
+    --gradient-primary: linear-gradient(to right, var(--accent-coral), var(--accent-orange));
+    --gradient-primary-translucent: linear-gradient(to right, rgba(255, 107, 107, 0.8), rgba(255, 142, 83, 0.8));
+    --gradient-vibrant: linear-gradient(to right, var(--accent-coral), var(--accent-orange-dark));
+    --gradient-cool: linear-gradient(45deg, var(--accent-orange-dark), var(--accent-coral));
+    --gradient-main: linear-gradient(to right, #FF6B6B, #FF8E53);
+
+    --border-color-soft: rgba(0, 0, 0, 0.05);
+    --card-background: #FFFFFF;
+    --card-background-translucent: rgba(255, 255, 255, 0.85);
+    --ui-background-hover: #FDF6ED;
+
+    /* Tailwind theme variables */
+    --promptly-background: var(--background);
+    --promptly-foreground: var(--foreground);
+    --promptly-heading: var(--heading-color);
+    --promptly-subheading: var(--subheading-color);
   }
 }
 
-html, body {
-  overflow-x: hidden; 
-  overflow-y: auto; 
+html,
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), sans-serif;
+  font-family: var(--font-poppins), var(--font-sans), sans-serif;
+  position: relative;
 }
 
-h1, h2 {
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 20% 30%, var(--accent-coral-light) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, var(--accent-orange-light) 0%, transparent 40%),
+    radial-gradient(circle at 60% 30%, var(--accent-orange-light) 0%, transparent 35%);
+  z-index: -1;
+  opacity: 0.6;
+  animation: backgroundShift 30s ease-in-out infinite alternate;
+}
+
+@keyframes backgroundShift {
+  0% {
+    background-position: 0% 0%;
+  }
+
+  100% {
+    background-position: 10% 30%;
+  }
+}
+
+/* New animations for the characters */
+@keyframes float-in {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.8);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-float-in {
+  animation: float-in 0.8s ease-out forwards;
+  display: inline-block;
+}
+
+/* Slow shimmer animations for hero section */
+@keyframes shimmer-slow {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.animate-shimmer-slow {
+  animation: shimmer-slow 8s ease-in-out infinite;
+}
+
+.animation-delay-1000 {
+  animation-delay: 1s;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+/* New animations for AI building website */
+@keyframes code-typing {
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes element-appear {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes ai-thinking {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes website-build {
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+
+  100% {
+    height: 100%;
+    opacity: 1;
+  }
+}
+
+@keyframes component-drop {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+
+  60% {
+    transform: translateY(5px);
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Animated background blobs */
+.bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(30px);
+  opacity: 0.5;
+  z-index: -1;
+  will-change: transform;
+  animation: blob-move 15s ease-in-out infinite;
+}
+
+h1,
+h2 {
   color: var(--heading-color);
+  font-family: var(--font-poppins), sans-serif;
+  font-weight: 700;
 }
 
-h3, h4, h5, h6 {
+h3,
+h4,
+h5,
+h6 {
   color: var(--subheading-color);
+  font-family: var(--font-poppins), sans-serif;
+  font-weight: 600;
 }
 
 .gsap-gradient-1 {
-  background: linear-gradient(to right, #88ce02, #4a8b01);
+  background: var(--gradient-main);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .gsap-gradient-2 {
-  background: linear-gradient(to right, #8d65ff, #5934ff);
+  background: var(--gradient-vibrant);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .gsap-gradient-3 {
-  background: linear-gradient(to right, #e90101, #ff6464);
+  background: var(--gradient-cool);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .gsap-gradient-4 {
-  background: linear-gradient(to right, #ffb700, #ff8a00);
+  background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+
+  33% {
+    transform: translateY(-10px) translateX(5px);
+  }
+
+  66% {
+    transform: translateY(5px) translateX(-5px);
+  }
+
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shine {
+  0% {
+    background-position: -100% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes blob-move {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+
+  33% {
+    transform: translate(30px, -50px) scale(1.1) rotate(120deg);
+  }
+
+  66% {
+    transform: translate(-20px, 20px) scale(0.9) rotate(240deg);
+  }
+
+  100% {
+    transform: translate(0, 0) scale(1) rotate(360deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    opacity: 0.5;
+    transform: translateX(-100%);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+@keyframes bounce-subtle {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes floating-blob {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(10px, -10px) scale(1.05);
+  }
+
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes floating-blob-2 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(-15px, 10px) scale(1.02);
+  }
+
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+.animate-pulse {
+  animation: pulse 3s infinite ease-in-out;
+}
+
+.animate-float {
+  animation: float 6s infinite ease-in-out;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-shine {
+  background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.5) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shine 3s infinite linear;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+.animate-rotate {
+  animation: rotate 20s linear infinite;
+}
+
+.animate-blob {
+  animation: blob-move 15s ease-in-out infinite;
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 5s ease-in-out infinite;
+}
+
+.animate-floating-blob {
+  animation: floating-blob 7s ease-in-out infinite;
+}
+
+.animate-floating-blob-2 {
+  animation: floating-blob-2 9s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.5), transparent);
+  animation: shimmer 2s infinite;
+}
+
+.gradient-bg {
+  background: var(--gradient-main);
+}
+
+.gradient-text,
+.bg-clip-text.text-transparent.bg-gradient-to-r {
+  background: var(--gradient-main);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: var(--gradient-main);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.animate-code-typing {
+  animation: code-typing 2s steps(30, end) forwards;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.animate-element-appear {
+  animation: element-appear 0.6s ease-out forwards;
+}
+
+.animate-ai-thinking {
+  animation: ai-thinking 2s infinite ease-in-out;
+}
+
+.animate-website-build {
+  animation: website-build 1.5s ease-out forwards;
+}
+
+.animate-component-drop {
+  animation: component-drop 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* New animations for AI typing effects */
+.text-gradient {
+  background: linear-gradient(to right, #FF6B6B, #FF8E53);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline;
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+.animate-blink {
+  animation: blink 1s infinite;
+}
+
+@keyframes cursor {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-cursor {
+  animation: blink 0.5s infinite;
+}
+
+/* AI floating effect for code elements */
+@keyframes ai-float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-15px) rotate(2deg);
+  }
+
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.animate-ai-float {
+  animation: ai-float 6s ease-in-out infinite;
+}
+
+/* AI glowing effect */
+@keyframes ai-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 15px 5px rgba(255, 107, 107, 0.6);
+  }
+
+  50% {
+    box-shadow: 0 0 25px 10px rgba(255, 142, 83, 0.8);
+  }
+}
+
+.animate-ai-glow {
+  animation: ai-glow 4s ease-in-out infinite;
+}
+
+/* AI code typing effect */
+@keyframes code-reveal {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+
+  to {
+    height: 100%;
+    opacity: 1;
+  }
+}
+
+.animate-code-reveal {
+  animation: code-reveal 1s forwards;
+  overflow: hidden;
+}
+
+/* AI data processing effect */
+@keyframes data-processing {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-data-processing {
+  background: linear-gradient(90deg,
+      rgba(255, 107, 107, 0.3) 0%,
+      rgba(255, 142, 83, 0.3) 25%,
+      rgba(255, 142, 83, 0.3) 50%,
+      rgba(255, 142, 83, 0.3) 75%,
+      rgba(255, 107, 107, 0.3) 100%);
+  background-size: 200% 100%;
+  animation: data-processing 3s infinite;
+}
+
+/* AI neural network connection effect */
+@keyframes neural-pulse {
+
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+.animate-neural {
+  animation: neural-pulse 2s infinite;
+}
+
+/* AI thinking effect */
+@keyframes ai-thinking {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+}
+
+.animate-ai-thinking {
+  animation: ai-thinking 1.5s ease-in-out infinite;
 }
