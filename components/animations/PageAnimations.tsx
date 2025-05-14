@@ -18,6 +18,7 @@ const PageAnimations: React.FC<PageAnimationsProps> = ({ children }) => {
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Animation code that only runs on the client
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
     
     // Fade in the entire page with a more dramatic effect
@@ -123,7 +124,9 @@ const PageAnimations: React.FC<PageAnimationsProps> = ({ children }) => {
     // Clean up animations when component unmounts
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-      if (cursorTrail.parentNode) {
+      // Clean up cursor trail if it exists
+      const cursorTrail = document.querySelector('.cursor-trail');
+      if (cursorTrail?.parentNode) {
         cursorTrail.parentNode.removeChild(cursorTrail);
       }
     };
@@ -131,7 +134,7 @@ const PageAnimations: React.FC<PageAnimationsProps> = ({ children }) => {
 
   return (
     <>
-      <div ref={contentRef}>
+      <div ref={contentRef} suppressHydrationWarning>
         {children}
       </div>
       

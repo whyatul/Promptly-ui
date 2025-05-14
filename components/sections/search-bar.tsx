@@ -259,7 +259,9 @@ const SearchBar = () => {
               </svg>
             </div>
             <div>
-              <div className="text-sm text-gray-400">AI Assistant</div>
+              <div className="text-sm text-gray-400" suppressHydrationWarning>
+                {"AI Assistant"}
+              </div>
               {searchValue && (
                 <AITypingEffect
                   text={`I'll help you create a ${searchValue.toLowerCase()}. Let me design the key components for you...`}

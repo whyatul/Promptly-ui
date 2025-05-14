@@ -161,6 +161,7 @@ export default function Home() {
           position: "relative",
           zIndex: 0
         }}
+        suppressHydrationWarning
       >
         {/* Background effects */}
         <NoSSR>
@@ -183,8 +184,8 @@ export default function Home() {
 
         <Navbar />
 
-        <main className="flex-grow flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 py-12 md:py-16 w-full">
-          <div className="animate-in relative z-10">
+        <main className="flex-grow flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 py-12 md:py-16 w-full" suppressHydrationWarning>
+          <div className="animate-in relative z-10" suppressHydrationWarning>
             <HeroContent />
           </div>
           <NoSSR>

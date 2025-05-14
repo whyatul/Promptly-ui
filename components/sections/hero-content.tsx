@@ -90,20 +90,20 @@ const HeroContent = () => {
 
   return (
     <div className="pt-20 pb-16 px-4 max-w-7xl mx-auto relative" ref={heroRef}>
-      {/* Decorative background elements with enhanced effects */}
-      <div className="absolute top-20 left-10 w-24 h-24 rounded-full bg-gradient-to-r from-[#FF6B6B] to-[#FF8E53] opacity-20 blur-xl decor-element animate-pulse"></div>
-      <div className="absolute bottom-40 right-20 w-32 h-32 rounded-full bg-gradient-to-r from-[#FF8E53] to-[#FF6B6B] opacity-20 blur-xl decor-element animate-pulse" style={{animationDelay: '1s'}}></div>
-      <div className="absolute top-1/2 left-1/3 w-16 h-16 rounded-full bg-gradient-to-r from-[#FF8E53] to-[#FF6B6B] opacity-10 blur-lg decor-element animate-pulse" style={{animationDelay: '2s'}}></div>
+      {/* Background elements */}
+      <div className="absolute top-20 left-10 w-24 h-24 rounded-full bg-gradient-to-r from-[#FF6B6B]/20 to-[#FF8E53]/20 animate-pulse" suppressHydrationWarning></div>
+      <div className="absolute bottom-40 right-20 w-32 h-32 rounded-full bg-gradient-to-r from-[#FF8E53]/20 to-[#FF6B6B]/20 animate-float" style={{animationDelay:"1s"}} suppressHydrationWarning></div>
+      <div className="absolute top-1/2 left-1/3 w-16 h-16 rounded-full bg-gradient-to-r from-[#FF6B6B]/10 to-[#FF8E53]/10 animate-float" style={{animationDelay:"2s"}} suppressHydrationWarning></div>
       
-      {/* Floating code snippets with improved opacity */}
-      <div className="absolute top-1/4 right-1/4 transform rotate-6 opacity-5 decor-element">
-        <div className="bg-gray-600/30 backdrop-blur-sm rounded-lg p-3 text-[8px] text-white font-mono">
-          {'<motion.div animate={{ y: [0, 10, 0] }} />'}
+      {/* Fixed code snippets with suppressHydrationWarning */}
+      <div className="absolute top-1/4 right-1/4 transform rotate-6 opacity-5 decoration-clone" suppressHydrationWarning>
+        <div className="bg-gray-600/30 backdrop-blur-sm rounded-lg p-3 text-[8px] font-mono text-white whitespace-pre" suppressHydrationWarning>
+          {"<motion.div animate={{ y: [0, 10, 0] }} />"}
         </div>
       </div>
-      <div className="absolute bottom-1/3 left-1/4 transform -rotate-3 opacity-5 decor-element">
-        <div className="bg-gray-600/30 backdrop-blur-sm rounded-lg p-3 text-[8px] text-white font-mono">
-          {'@keyframes float { 0%, 100% { transform: translateY(0); } }'}
+      <div className="absolute bottom-1/3 left-1/4 transform -rotate-3 opacity-5 decoration-clone" suppressHydrationWarning>
+        <div className="bg-gray-600/30 backdrop-blur-sm rounded-lg p-3 text-[8px] font-mono text-white whitespace-pre" suppressHydrationWarning>
+          {"@keyframes float { 0%, 100% { transform: translateY(0); } }"}
         </div>
       </div>
       
