@@ -20,28 +20,13 @@ import AICodeLivePreview from "@/components/animations/ai-code-live-preview";
 import NoSSR from "@/lib/utils/no-ssr";
 import dynamic from "next/dynamic";
 import PageAnimations from "@/components/animations/PageAnimations";
+import StaticTestimonials from "@/components/sections/static-testimonials";
 
-
-// Improved testimonial slider with better fallback
-const TestimonialSlider = dynamic(
-  () => import("@/components/sections/testimonial-slider"),
-  { 
-    ssr: false,
-    loading: () => (
-      <div className="h-[500px] w-full flex items-center justify-center">
-        <div className="flex flex-col items-center space-y-4">
-          <div className="relative w-36 h-36">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#FF6B6B] to-[#FF8E53] rounded-full opacity-20 animate-ping"></div>
-            <div className="absolute inset-4 bg-gradient-to-r from-[#FF6B6B] to-[#FF8E53] rounded-full opacity-40 animate-pulse"></div>
-            <div className="absolute inset-8 bg-gradient-to-r from-[#FF6B6B] to-[#FF8E53] rounded-full opacity-60 animate-pulse" style={{animationDelay: "300ms"}}></div>
-            <div className="absolute inset-12 bg-gradient-to-r from-[#FF6B6B] to-[#FF8E53] rounded-full opacity-80 animate-pulse" style={{animationDelay: "600ms"}}></div>
-          </div>
-          <p className="text-lg text-white animate-pulse">Loading testimonials...</p>
-        </div>
-      </div>
-    )
-  }
-);
+// Import TestimonialSlider with dynamic loading to avoid SSR issues
+// const TestimonialSlider = dynamic(
+//   () => import("@/components/sections/testimonial-slider"),
+//   { ssr: false }
+// );
 
 interface SectionProps {
   children: ReactNode;
@@ -257,7 +242,7 @@ export default function Home() {
                   Join thousands of satisfied customers who are building amazing websites with our AI technology
                 </p>
               </div>
-              <TestimonialSlider />
+              <StaticTestimonials />
             </div>
           </Section>
         </NoSSR>

@@ -8,9 +8,9 @@ import dynamic from "next/dynamic";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-// Import Slider components dynamically to prevent SSR issues
-const SliderModule = dynamic(() => import("react-slick"), {
-  ssr: false,
+// Import Slider dynamically to prevent SSR issues
+const Slider = dynamic(() => import("react-slick"), {
+  ssr: false
 });
 
 interface Testimonial {
@@ -22,31 +22,18 @@ interface Testimonial {
 }
 
 const TestimonialSlider: React.FC = () => {
-  const slider1Ref = useRef<any>(null);
-  const slider2Ref = useRef<any>(null);
-  
-  const [mounted, setMounted] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [error, setError] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
 
+  // Use useEffect to track client-side mounting
   useEffect(() => {
-    // Mark component as mounted
     setMounted(true);
-    
-    // Simulate a timeout for loading to prevent infinite loading state
-    const timeout = setTimeout(() => {
-      if (!mounted && !error) {
-        setError("Testimonials could not be loaded. Please refresh the page.");
-      }
-    }, 5000);
-    
-    return () => clearTimeout(timeout);
   }, []);
 
-  const settingsLTR: any = {
+  const settingsLTR = {
     dots: false,
     infinite: true,
-    speed: 8000, // Slowed down for better readability
+    speed: 8000,
     slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
@@ -61,89 +48,98 @@ const TestimonialSlider: React.FC = () => {
     beforeChange: (_: any, next: number) => setActiveIndex(next),
   };
 
-  const settingsRTL: any = {
+  const settingsRTL = {
     ...settingsLTR,
     rtl: true,
-    speed: 10000, // Slowed down for better readability
+    speed: 10000,
   };
 
   const testimonials: Testimonial[] = [
     {
-      quote: "Promptly has revolutionized how our team approaches UI animations. The AI suggestions are spot-on and save us countless hours of work!",
+      quote: "Promptly transformed how we design websites. We've cut our development time in half while creating more visually stunning results. Our clients are amazed by what we can deliver now.",
       author: "Alex Chen",
       role: "Lead Designer",
       company: "Creative Solutions Inc."
     },
     {
-      quote: "The speed at which we can now prototype and implement animations is incredible. Promptly's AI has become an essential part of our workflow.",
+      quote: "The AI-powered website builder is revolutionary. I created a complete e-commerce store in just one afternoon that would have taken weeks with traditional tools. The conversion rate has been phenomenal.",
       author: "Sarah Johnson",
       role: "Frontend Developer",
       company: "TechFront Studios"
     },
     {
-      quote: "I was skeptical about AI-driven design tools, but Promptly changed my mind. It understands exactly what I need and delivers every time.",
+      quote: "As a non-technical founder, Promptly was a game-changer for our startup. We launched our SaaS product with a beautiful, responsive website that looks like we spent thousands on a design agency.",
       author: "Michael Rodriguez",
       role: "UX Director",
       company: "Innovate UX"
     },
     {
-      quote: "As a solo designer, Promptly feels like having an entire animation team at my fingertips. The quality and speed are unmatched.",
+      quote: "I've used every website builder on the market, and nothing comes close to Promptly. The AI understands exactly what I need and creates custom solutions that perfectly match my brand identity.",
       author: "Emma Wilson",
       role: "Freelance Designer",
       company: "Self-employed"
     },
     {
-      quote: "Our clients are consistently impressed with the polished animations we deliver. Promptly has elevated our entire design output.",
+      quote: "Our agency has increased client capacity by 40% since adopting Promptly. The seamless workflow from concept to deployment means we can deliver professional websites in record time.",
       author: "David Park",
       role: "Agency Owner",
       company: "Pixel Perfect Design"
     },
     {
-      quote: "The learning curve was non-existent. We were up and running with complex animations in minutes. Simply revolutionary.",
+      quote: "The SEO optimization alone was worth the investment. Our organic traffic increased by 78% in the first month after migrating to a Promptly-built site. The AI just knows what Google wants.",
       author: "Olivia Martinez",
-      role: "Product Manager",
+      role: "Marketing Director",
       company: "SaaS Innovations"
     },
+    {
+      quote: "Promptly helped us rebuild our entire enterprise website in just two weeks. The AI's ability to maintain brand consistency across hundreds of pages while optimizing for performance is unmatched.",
+      author: "James Wilson",
+      role: "CTO",
+      company: "EnterpriseFlow"
+    },
+    {
+      quote: "As a small business owner with no tech background, I was able to create a website that rivals my bigger competitors. The AI guided me through every step with suggestions that felt custom-made for my industry.",
+      author: "Sophia Lee",
+      role: "Owner",
+      company: "Artisan Crafts Co."
+    },
+    {
+      quote: "The accessibility features in Promptly are incredible. Our university website now meets all WCAG guidelines without any additional work, and the AI automatically suggests improvements for inclusive design.",
+      author: "Robert Johnson",
+      role: "Digital Accessibility Lead",
+      company: "State University"
+    },
+    {
+      quote: "Our e-commerce conversion rate jumped 35% after switching to Promptly. The AI-optimized checkout flow and product pages seem to know exactly what our customers need to see before making a purchase.",
+      author: "Nina Patel",
+      role: "E-commerce Manager",
+      company: "Global Retail Solutions"
+    }
   ];
 
-  // Loading state with animated placeholder
+  // Show a simple loading state until client-side rendering is complete
   if (!mounted) {
     return (
       <div className="h-[400px] w-full flex items-center justify-center">
-        <div className="flex flex-col items-center space-y-4">
-          <div className="relative w-36 h-36">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#FF6B6B] to-[#FF8E53] rounded-full opacity-20 animate-ping"></div>
-            <div className="absolute inset-4 bg-gradient-to-r from-[#FF6B6B] to-[#FF8E53] rounded-full opacity-40 animate-pulse"></div>
-            <div className="absolute inset-8 bg-gradient-to-r from-[#FF6B6B] to-[#FF8E53] rounded-full opacity-60 animate-pulse" style={{animationDelay: "300ms"}}></div>
-            <div className="absolute inset-12 bg-gradient-to-r from-[#FF6B6B] to-[#FF8E53] rounded-full opacity-80 animate-pulse" style={{animationDelay: "600ms"}}></div>
+        <div className="text-center">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 bg-gradient-to-r from-[#FF6B6B] to-[#FF8E53] bg-clip-text text-transparent animate-pulse">
+            Trusted by website creators worldwide
+          </h2>
+          <div className="flex justify-center mb-4">
+            <div className="relative w-24 h-24">
+              <div className="absolute inset-0 bg-gradient-to-r from-[#FF6B6B] to-[#FF8E53] rounded-full opacity-20 animate-ping"></div>
+              <div className="absolute inset-4 bg-gradient-to-r from-[#FF6B6B] to-[#FF8E53] rounded-full opacity-40 animate-pulse"></div>
+            </div>
           </div>
-          <p className="text-lg text-gray-100 animate-pulse">Loading testimonials...</p>
+          <p className="text-lg text-white animate-pulse">Loading testimonials...</p>
         </div>
       </div>
     );
   }
 
-  // Error state
-  if (error) {
-    return (
-      <div className="h-[300px] w-full flex items-center justify-center">
-        <div className="text-center p-8 bg-white/5 backdrop-blur-sm rounded-2xl border border-[#FF6B6B]/30">
-          <div className="text-[#FF6B6B] text-4xl mb-4">⚠️</div>
-          <p className="text-lg text-gray-100 mb-4">{error}</p>
-          <button 
-            onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-gradient-to-r from-[#FF6B6B] to-[#FF8E53] text-white rounded-full text-sm"
-          >
-            Refresh
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  // Regular display
+  // Client-side rendered content with Slider
   return (
-    <div className="relative w-full px-6 animate-in overflow-hidden" suppressHydrationWarning>
+    <div className="relative w-full px-6 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-[#FF8E53]/10 to-[#FF6B6B]/5 pointer-events-none"></div>
       
       <div className="relative z-10 max-w-7xl mx-auto">
@@ -151,10 +147,10 @@ const TestimonialSlider: React.FC = () => {
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 bg-gradient-to-r from-[#FF6B6B] to-[#FF8E53] bg-clip-text text-transparent animate-pulse"
           style={{ fontFamily: "var(--font-cal-sans), sans-serif" }}
           >
-            Trusted by designers & developers
+            Trusted by website creators worldwide
           </h2>
           <p className="text-xl text-gray-100 max-w-3xl mx-auto leading-relaxed">
-            Join thousands of professionals who are creating beautiful animations in record time
+            Join thousands of professionals who are building stunning websites in record time
           </p>
         </div>
 
@@ -173,7 +169,7 @@ const TestimonialSlider: React.FC = () => {
             ))}
           </div>
           
-          <SliderModule {...settingsLTR} ref={slider1Ref}>
+          <Slider {...settingsLTR}>
             {testimonials.map((testimonial, index) => (
               <div key={`ltr-${index}`} className="px-4 py-2">
                 <div 
@@ -201,14 +197,14 @@ const TestimonialSlider: React.FC = () => {
                 </div>
               </div>
             ))}
-          </SliderModule>
+          </Slider>
         </div>
 
         <div className="overflow-visible relative">
           <div className="absolute top-0 bottom-0 left-0 w-20 bg-gradient-to-r from-[#1F2937] to-transparent z-10 pointer-events-none"></div>
           <div className="absolute top-0 bottom-0 right-0 w-20 bg-gradient-to-l from-[#1F2937] to-transparent z-10 pointer-events-none"></div>
           
-          <SliderModule {...settingsRTL} ref={slider2Ref}>
+          <Slider {...settingsRTL}>
             {[...testimonials].reverse().map((testimonial, index) => (
               <div key={`rtl-${index}`} className="px-4 py-2">
                 <div 
@@ -235,7 +231,7 @@ const TestimonialSlider: React.FC = () => {
                 </div>
               </div>
             ))}
-          </SliderModule>
+          </Slider>
         </div>
       </div>
 
