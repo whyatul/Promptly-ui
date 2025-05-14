@@ -3,12 +3,11 @@
 import React, { useEffect, useRef, ReactNode } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollSmoother } from 'gsap/ScrollSmoother';
 import { Observer } from 'gsap/Observer';
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger, ScrollSmoother, Observer);
+  gsap.registerPlugin(ScrollTrigger, Observer);
 }
 
 interface PageAnimationsProps {
@@ -16,106 +15,113 @@ interface PageAnimationsProps {
 }
 
 const PageAnimations: React.FC<PageAnimationsProps> = ({ children }) => {
-  const wrapperRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const smootherRef = useRef<any>(null);
 
   useEffect(() => {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
     
-    // Fade in the entire page
+    // Fade in the entire page with a more dramatic effect
     tl.fromTo('body', 
       { opacity: 0 },
-      { opacity: 1, duration: 1 }
+      { opacity: 1, duration: 1.2, ease: 'power2.inOut' }
     );
     
-    // Create smooth scrolling experience
-    smootherRef.current = ScrollSmoother.create({
-      wrapper: wrapperRef.current,
-      content: contentRef.current,
-      smooth: 1, // Adjust the smoothness (higher = smoother but more delay)
-      effects: true,
-      normalizeScroll: true,
-    });
-    
-    // Add scroll-based parallax effects to sections
+    // Add scroll-based animations to sections
     gsap.utils.toArray('section').forEach((section: any, i) => {
-      // Add subtle parallax to sections
+      // Add subtle parallax effect
       gsap.fromTo(section, 
-        { y: 0 }, 
+        { y: 0, rotation: 0 }, 
         {
-          y: -50 * (i % 2 ? 1 : -1), // Alternate direction
-          ease: 'none',
+          y: -20 * (i % 2 ? 1 : -1), // Reduced movement to avoid layout issues
+          rotation: 0.2 * (i % 2 ? 1 : -1), // Slight rotation for more dynamic feel
+          ease: 'power1.inOut',
           scrollTrigger: {
             trigger: section,
             start: 'top bottom',
             end: 'bottom top',
-            scrub: true,
+            scrub: 0.8, // Smoother scrub effect
           }
         }
       );
       
-      // Add fade in and scale effect for sections
-      ScrollTrigger.create({
-        trigger: section,
-        start: 'top bottom-=100',
-        end: 'top center',
-        toggleClass: 'section-visible',
-        once: true
-      });
+      // Add staggered reveal for children elements
+      const sectionChildren = section.querySelectorAll('.animate-on-scroll');
+      if (sectionChildren.length) {
+        gsap.from(sectionChildren, {
+          y: 30,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          }
+        });
+      }
     });
 
-    // Page backgrounds parallax effect
-    const backgrounds = document.querySelectorAll('.bg-promptly-background');
-    backgrounds.forEach((bg: any) => {
-      gsap.to(bg, {
-        backgroundPosition: `50% ${-20}%`,
-        ease: "none",
-        scrollTrigger: {
-          trigger: bg,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true
-        }
-      });
-    });
-    
-    // Add animation to headings
+    // Enhanced animation for headings
     gsap.utils.toArray('h1, h2').forEach((heading: any) => {
       gsap.from(heading, {
         opacity: 0,
-        y: 50,
-        duration: 0.8,
+        y: 30, // Reduced movement
+        duration: 1,
         scrollTrigger: {
           trigger: heading,
-          start: 'top bottom-=50',
+          start: 'top bottom-=80',
           toggleActions: 'play none none none',
           once: true
         }
       });
     });
     
-    // Add cursor trail effect
+    // Button hover effects
+    gsap.utils.toArray('a, button').forEach((button: any) => {
+      button.addEventListener('mouseenter', () => {
+        gsap.to(button, {
+          scale: 1.05,
+          duration: 0.3,
+          ease: 'back.out(1.5)',
+        });
+      });
+      
+      button.addEventListener('mouseleave', () => {
+        gsap.to(button, {
+          scale: 1,
+          duration: 0.2,
+          ease: 'power1.out',
+        });
+      });
+    });
+    
+    // Add enhanced cursor trail effect with coral/orange color scheme
     const cursorTrail = document.createElement('div');
     cursorTrail.className = 'cursor-trail';
     document.body.appendChild(cursorTrail);
     
-    Observer.create({
-      type: 'pointer',
-      onMove: (self) => {
-        const { clientX, clientY } = self;
-        gsap.to(cursorTrail, {
-          x: clientX,
-          y: clientY,
-          duration: 0.5,
-          ease: 'power2.out'
-        });
-      }
-    });
+    // Fix type issues with Observer
+    if (typeof Observer !== 'undefined') {
+      Observer.create({
+        type: 'pointer',
+        onMove: (self) => {
+          if (self && self.event) {
+            const e = self.event as MouseEvent;
+            const clientX = e.clientX || 0;
+            const clientY = e.clientY || 0;
+            gsap.to(cursorTrail, {
+              x: clientX,
+              y: clientY,
+              duration: 0.4, // Slightly faster for more responsive feel
+              ease: 'power2.out'
+            });
+          }
+        }
+      });
+    }
 
     // Clean up animations when component unmounts
     return () => {
-      if (smootherRef.current) smootherRef.current.kill();
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
       if (cursorTrail.parentNode) {
         cursorTrail.parentNode.removeChild(cursorTrail);
@@ -125,49 +131,35 @@ const PageAnimations: React.FC<PageAnimationsProps> = ({ children }) => {
 
   return (
     <>
-      <div className="smooth-wrapper" ref={wrapperRef}>
-        <div className="smooth-content" ref={contentRef}>
-          {children}
-        </div>
+      <div ref={contentRef}>
+        {children}
       </div>
       
       <style jsx global>{`
-        .smooth-wrapper {
-          overflow: hidden;
-          position: relative;
-        }
-        
-        .smooth-content {
-          will-change: transform;
-        }
-        
-        section {
-          opacity: 0.85;
-          transform: scale(0.95);
-          transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        
-        section.section-visible {
-          opacity: 1;
-          transform: scale(1);
+        .animate-on-scroll {
+          opacity: 0;
+          transform: translateY(20px);
         }
         
         .cursor-trail {
           position: fixed;
-          width: 15px;
-          height: 15px;
+          width: 18px;
+          height: 18px;
           border-radius: 50%;
-          background: radial-gradient(circle, rgba(255,211,25,0.5) 0%, rgba(255,41,117,0.2) 70%, transparent 100%);
+          background: radial-gradient(circle, rgba(255, 107, 107, 0.6) 0%, rgba(255, 142, 83, 0.3) 70%, transparent 100%);
           pointer-events: none;
           z-index: 9999;
-          opacity: 0.6;
+          opacity: 0.7;
           transform: translate(-50%, -50%);
           filter: blur(2px);
+          box-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
         }
         
         @media (prefers-reduced-motion) {
-          .smooth-wrapper, .smooth-content {
+          section, .animate-on-scroll {
+            opacity: 1 !important;
             transform: none !important;
+            transition: none !important;
           }
         }
       `}</style>

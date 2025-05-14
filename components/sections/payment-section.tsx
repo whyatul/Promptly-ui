@@ -166,7 +166,7 @@ export default function PaymentSection() {
             finances has never been easier or more convenient.
           </p>
           <div className="pt-4">
-            <button className="px-8 py-4 rounded-full bg-gradient-to-r from-yellow-400 via-purple-500 to-orange-500 text-white font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+            <button className="px-8 py-4 rounded-full bg-gradient-to-r from-[#FF8E53] via-[#FF6B6B] to-[#FF5E99] text-white font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
               Get Started Now
             </button>
           </div>
